@@ -1,0 +1,68 @@
+1. Create the Parent Component (parent.component.ts):
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-parent',
+  template: `
+    <div>
+      <label for="inputData">Enter Data:</label>
+      <input [(ngModel)]="enteredData" id="inputData" />
+      <app-child [childData]="enteredData"></app-child>
+    </div>
+  `,
+})
+export class ParentComponent {
+  enteredData: string = '';
+}
+
+-----------------------------------------------------------------
+2. Create the Child Component (child.component.ts):
+
+
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-child',
+  template: `
+    <div>
+      <h3>Child Component</h3>
+      <p>Data from Parent: {{ childData }}</p>
+    </div>
+  `,
+})
+export class ChildComponent {
+  @Input() childData: string = '';
+}
+
+------------------------------------------------------------------
+3. Add the Components to Module (app.module.ts):
+
+
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+
+import { AppComponent } from './app.component';
+import { ParentComponent } from './parent.component';
+import { ChildComponent } from './child.component';
+
+@NgModule({
+  declarations: [AppComponent, ParentComponent, ChildComponent],
+  imports: [BrowserModule, FormsModule],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+
+--------------------------------------------------------------------
+
+4. Include the Components in your App (app.component.ts):
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: '<app-parent></app-parent>',
+})
+export class AppComponent {}
+
